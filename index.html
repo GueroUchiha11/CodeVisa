@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeVisa</title>
+    <style>
+        /* Estilos básicos para la página */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin: auto;
+        }
+        input, textarea {
+            width: 100%;
+            margin: 10px 0;
+            padding: 8px;
+        }
+        img {
+            max-width: 100%;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>CodeVisa</h1>
+    <div class="container">
+        <h2>Subir Texto</h2>
+        <textarea id="textInput" placeholder="Escribe algo..."></textarea>
+        <button onclick="showText()">Mostrar Texto</button>
+        <p id="displayText"></p>
+        
+        <h2>Subir Imagen</h2>
+        <input type="file" id="imageInput" accept="image/*">
+        <button onclick="showImage()">Mostrar Imagen</button>
+        <br>
+        <img id="displayImage" src="" alt="Imagen subida" style="display: none;">
+    </div>
+
+    <script>
+        // Función para mostrar el texto ingresado
+        function showText() {
+            let text = document.getElementById("textInput").value; // Obtiene el valor del textarea
+            document.getElementById("displayText").innerText = text; // Muestra el texto en el párrafo
+        }
+
+        // Función para mostrar la imagen subida
+        function showImage() {
+            let input = document.getElementById("imageInput"); // Obtiene el input de archivo
+            let file = input.files[0]; // Toma el primer archivo seleccionado
+            if (file) {
+                let reader = new FileReader(); // Crea un lector de archivos
+                reader.onload = function(e) {
+                    let img = document.getElementById("displayImage");
+                    img.src = e.target.result; // Asigna la imagen subida al src
+                    img.style.display = "block"; // La muestra en la página
+                }
+                reader.readAsDataURL(file); // Lee el archivo como URL de datos
+            }
+        }
+    </script>
+</body>
+</html>
